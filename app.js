@@ -1,7 +1,10 @@
 const express = require("express"); //makes node easier to use
 const https = require("https"); //fetch external API
 const app = express();
+require('dotenv').config();
 app.use(express.urlencoded({extended:true}));
+
+console.log(process.env);
 
 app.get("/", function(req, res) {
   res.sendFile(__dirname + "/index.html");
@@ -10,7 +13,7 @@ app.get("/", function(req, res) {
 app.post("/", function(req, res) {
 
   const query = req.body.cityName
-  const apiKey = "c0eddc7dafe0585f3e9419408f806e5a";
+  const apiKey = process.env.API_KEY;
   const unit = "metric";
   const url = "https://api.openweathermap.org/data/2.5/weather?q=" + query + "&appid=" + apiKey + "&units=" + unit;  //remember to add the https at the front
 
